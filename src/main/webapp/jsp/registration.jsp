@@ -10,6 +10,7 @@
     <title>Registration</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <form action="/registration" method="post" class="container g-3 col-sm-6">
     <h1>Registration</h1>
     <div class="form-group row">

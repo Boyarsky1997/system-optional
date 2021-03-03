@@ -3,13 +3,20 @@ package com.github.boyarsky1997.systemoptional.model;
 import java.util.Objects;
 
 public abstract class User {
+    private int id;
     private Role role;
     private String login;
     private String password;
     private String name;
     private String surname;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User(Role student) {
     }

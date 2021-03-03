@@ -17,6 +17,7 @@ CREATE TABLE course
     id         INTEGER AUTO_INCREMENT,
     title      VARCHAR(25),
     teacher_id int,
+    description      VARCHAR(225),
     FOREIGN KEY (teacher_id) references user (id),
     PRIMARY KEY (id)
 );

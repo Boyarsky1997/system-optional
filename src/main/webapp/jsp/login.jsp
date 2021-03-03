@@ -10,7 +10,7 @@
     <title>LogIn</title>
 </head>
 <body>
-
+<jsp:include page="header.jsp"/>
 <form class="container g-3 col-sm-6" action="/login" method="post">
     <div class="row justify-content-md-center">
         <div class="col-md-6">
@@ -25,9 +25,6 @@
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Sign in</button>
         </div>
-    </div>
-    <div align="right" class="col-12">
-        <a href="/registration">registration</a>
     </div>
     <c:if test="${not empty unfaithful}">
         <div class="alert alert-danger" role="alert">
