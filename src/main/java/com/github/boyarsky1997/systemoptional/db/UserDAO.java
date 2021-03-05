@@ -49,6 +49,44 @@ public class UserDAO {
         return null;
     }
 
+    public void addComment(String message, int teacherId, int studentId, Date date) {
+        try {
+            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+                    .prepareStatement(Resources.load("/sql/insertComment.sql"));
+            preparedStatement.setString(1, message);
+            preparedStatement.setInt(2, teacherId);
+            preparedStatement.setInt(3, studentId);
+            preparedStatement.setDate(4, date);
+
+            preparedStatement.execute();
+            logger.info("Клієнт був успішно доданий");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<User> getAllStudentOnCourseId(int courseId) {
+        List<User> result = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+                    .prepareStatement(Resources.load("/sql/getAllStudentOnCourseId.sql"));
+            preparedStatement.setInt(1, courseId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new Student();
+                user.setId(resultSet.getInt(1));
+                user.setRole(Role.STUDENT);
+                user.setName(resultSet.getString(3));
+                user.setSurname(resultSet.getString(4));
+                user.setLogin(resultSet.getString(5));
+                user.setPassword(resultSet.getString(6));
+                result.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public boolean checkExistLogin(String login) {
         try {

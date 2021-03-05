@@ -19,7 +19,12 @@
 </c:if>
 <ul class="list-group list-group-flush">
     <c:forEach var="course" items="${courseList}">
-        <li class="list-group-item"><a class="nav-link">${course.getTitle()}</a></li>
+        <li class="list-group-item"><a class="nav-link" href="/course?id=${course.getId()}">${course.getTitle()}</a></li>
+    </c:forEach>
+</ul>
+<ul class="list-group list-group-flush">
+    <c:forEach var="comment" items="${commentList}">
+        <li class="list-group-item">${comment.getNameTeacher()}-${comment.getMessage()}</li>
     </c:forEach>
 </ul>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"

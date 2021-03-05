@@ -42,6 +42,13 @@
                 <input type="hidden" id="id" name="id" value="${course.getId()}">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-primary me-md-2" type="submit">Edit</button>
+
+                </div>
+            </form>
+            <form class="row g-3" method="get" action="/ratting?id=${course.getId()}">
+                <input type="hidden" id="id1" name="id1" value="${course.getId()}">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary me-md-2" type="submit">Leave a comment</button>
                 </div>
             </form>
         </c:if>

@@ -1,0 +1,1 @@
+SELECT * from course where teacher_id = ?

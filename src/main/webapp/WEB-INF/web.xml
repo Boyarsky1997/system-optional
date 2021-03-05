@@ -35,6 +35,10 @@
         <servlet-name>CreateCourseServlet</servlet-name>
         <servlet-class>com.github.boyarsky1997.systemoptional.authorization.CreateCourseServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RatingServlet</servlet-name>
+        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.RatingServlet</servlet-class>
+    </servlet>
     <session-config>
         <session-timeout>15</session-timeout>
     </session-config>
@@ -70,6 +74,10 @@
     <servlet-mapping>
         <servlet-name>CreateCourseServlet</servlet-name>
         <url-pattern>/createCourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RatingServlet</servlet-name>
+        <url-pattern>/ratting</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>AuthorizationFilter</filter-name>

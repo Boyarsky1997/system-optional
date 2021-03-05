@@ -84,6 +84,26 @@ public class CourseDAO {
 
     }
 
+    public List<Course> getAllCourseOnTeacherId(int teacherId){
+        List<Course> result = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+                    .prepareStatement(Resources.load("/sql/getAllCourseOnTeacherId.sql"));
+            preparedStatement.setInt(1, teacherId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Course course = new Course();
+                course.setId(resultSet.getInt(1));
+                course.setTitle(resultSet.getString(2));
+                course.setDescription(resultSet.getString(3));
+                result.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public List<Course> getStudentCourse(int studentId) {
         List<Course> result = new ArrayList<>();
         try {
