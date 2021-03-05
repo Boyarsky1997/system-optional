@@ -38,7 +38,8 @@
             </form>
         </c:if>
         <c:if test="${sessionScope.client.role == 'TEACHER'}">
-            <form class="row g-3" method="post" action="/edit?id=${course.getId()}">
+            <form class="row g-3" method="get" action="/edit">
+                <input type="hidden" id="id" name="id" value="${course.getId()}">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-primary me-md-2" type="submit">Edit</button>
                 </div>

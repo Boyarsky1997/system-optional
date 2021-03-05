@@ -12,26 +12,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Enumeration;
+import java.util.Map;
 
 public class EditCourseServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(EditCourseServlet.class);
     CourseDAO courseDAO = new CourseDAO();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
-
+        String courseId = req.getParameter("id");
+        Course course = courseDAO.getById(Integer.parseInt(courseId));
+        req.setAttribute("course", course);
+        HttpSession session = req.getSession(false);
+        User client = (User) session.getAttribute("client");
+        if (client.getRole().equals(Role.TEACHER)) {
+            req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String courseId = req.getParameter("id");
-        Course course = courseDAO.getById(Integer.parseInt(courseId));
-        req.setAttribute("getDescription",course.getDescription());
-        HttpSession session = req.getSession(false);
-        User client = (User)session.getAttribute("client");
-        if (client.getRole().equals(Role.TEACHER)) {
-
-            req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
-        }
+        req.setCharacterEncoding("UTF-8");
+        String id = req.getParameter("id");
+        String title = req.getParameter("title");
+        String description = req.getParameter("description");
+        courseDAO.update(Integer.parseInt(id), title, description);
+        resp.sendRedirect("/course?id="+id);
     }
 }

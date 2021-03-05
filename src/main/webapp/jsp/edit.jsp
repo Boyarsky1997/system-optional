@@ -11,15 +11,18 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<form action="/edit" method="post" class="container g-3 col-sm-6">
+<form action="/edit?id=${course.getId()}" method="post" class="container g-3 col-sm-6">
     <h1>Edit</h1>
     <div class="form-group row">
-        <label for="inputName" class="col-sm-2 col-form-label">Description</label>
+        <label for="inputName" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
-            <input type="text" name="name" class="form-control" id="inputName" placeholder="${getDescription}">
+            <input type="text" name="title" class="form-control" id="inputName" value="${course.getTitle()}">
         </div>
     </div>
-
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3">${course.getDescription()}</textarea>
+    </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Edit</button>
     </div>

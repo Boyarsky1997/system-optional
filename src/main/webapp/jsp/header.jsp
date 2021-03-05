@@ -14,6 +14,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/courses">Courses</a>
             </li>
+            <c:if test="${sessionScope.client.role=='TEACHER'}">
+                <li class="nav-item">
+                    <a class="nav-link" href="/createCourse">Create course</a>
+                </li>
+            </c:if>
             <div class="navbar-nav ms-auto">
                 <c:if test="${sessionScope.client != null}">
                     <li class="nav-item">
