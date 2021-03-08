@@ -17,7 +17,7 @@ public class CommentDAO {
         List<Comment> result = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
-                    .prepareStatement(Resources.load("/sql/getAllComentOnUserId.sql"));
+                    .prepareStatement(Resources.load("/sql/getAllCommentOnUserId.sql"));
             preparedStatement.setInt(1, studentId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -28,6 +28,7 @@ public class CommentDAO {
                 comment.setStudentId(resultSet.getInt(4));
                 comment.setDate(resultSet.getDate(5));
                 comment.setNameTeacher(resultSet.getString(6));
+                comment.setTeacherSurname(resultSet.getString(7));
                 result.add(comment);
             }
         } catch (SQLException e) {

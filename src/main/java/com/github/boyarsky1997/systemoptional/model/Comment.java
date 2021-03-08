@@ -7,16 +7,34 @@ public class Comment {
     private String message;
     private int teacherId;
     private String teacherName;
+    private String teacherSurname;
     private int studentId;
     private Date date;
 
-    public Comment(int id, String message, int teacherId, int studentId, Date date, String teacherName) {
+    public Comment(int id, String message, int teacherId, int studentId, Date date, String teacherName,String teacherSurname) {
         this.id = id;
         this.message = message;
         this.teacherId = teacherId;
         this.studentId = studentId;
         this.date = date;
         this.teacherName = teacherName;
+        this.teacherSurname = teacherSurname;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getTeacherSurname() {
+        return teacherSurname;
+    }
+
+    public void setTeacherSurname(String teacherSurname) {
+        this.teacherSurname = teacherSurname;
     }
 
     public String getNameTeacher() {
@@ -79,6 +97,7 @@ public class Comment {
                 ", studentId=" + studentId +
                 ", date=" + date +
                 ", teacherName=" + teacherName +
+                ",teacherSurname=" +teacherSurname+
                 '}';
     }
 }
