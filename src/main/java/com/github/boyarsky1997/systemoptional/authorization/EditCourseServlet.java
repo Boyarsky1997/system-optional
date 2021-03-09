@@ -24,11 +24,15 @@ public class EditCourseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String courseId = req.getParameter("id");
         Course course = courseDAO.getById(Integer.parseInt(courseId));
-        req.setAttribute("course", course);
         HttpSession session = req.getSession(false);
         User client = (User) session.getAttribute("client");
-        if (client.getRole().equals(Role.TEACHER)) {
-            req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+        if (course.getTeacherId() == client.getId()) {
+            req.setAttribute("course", course);
+            if (client.getRole().equals(Role.TEACHER)) {
+                req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+            }
+        } else {
+            resp.sendError(403);
         }
     }
 
@@ -39,6 +43,6 @@ public class EditCourseServlet extends HttpServlet {
         String title = req.getParameter("title");
         String description = req.getParameter("description");
         courseDAO.update(Integer.parseInt(id), title, description);
-        resp.sendRedirect("/course?id="+id);
+        resp.sendRedirect("/course?id=" + id);
     }
 }
