@@ -20,16 +20,20 @@ public class EditCourseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String courseId = req.getParameter("id");
-        Course course = courseDAO.getById(Integer.parseInt(courseId));
-        HttpSession session = req.getSession(false);
-        User client = (User) session.getAttribute("client");
-        if (course.getTeacherId() == client.getId()) {
-            req.setAttribute("course", course);
-            if (client.getRole().equals(Role.TEACHER)) {
-                req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
-            }
+        if (courseId == null) {
+            resp.sendError(404);
         } else {
-            resp.sendError(403);
+            Course course = courseDAO.getById(Integer.parseInt(courseId));
+            HttpSession session = req.getSession(false);
+            User client = (User) session.getAttribute("client");
+            if (course.getTeacherId() == client.getId()) {
+                req.setAttribute("course", course);
+                if (client.getRole().equals(Role.TEACHER)) {
+                    req.getRequestDispatcher("/jsp/edit.jsp").forward(req, resp);
+                }
+            } else {
+                resp.sendError(403);
+            }
         }
     }
 
