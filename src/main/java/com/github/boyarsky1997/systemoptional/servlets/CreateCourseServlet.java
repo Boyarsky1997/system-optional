@@ -36,10 +36,10 @@ public class CreateCourseServlet extends HttpServlet {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         int id = client.getId();
-        int lastId = courseDAO.insert(name, description, id);
         if (name.equals("") || description.equals("")) {
             resp.sendRedirect("/createCourse");
         } else {
+            int lastId = courseDAO.insert(name, description, id);
             logger.info(name);
             logger.info(description);
             resp.sendRedirect("/course?id=" + lastId);
