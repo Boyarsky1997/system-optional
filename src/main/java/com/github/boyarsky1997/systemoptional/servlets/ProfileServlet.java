@@ -1,4 +1,4 @@
-package com.github.boyarsky1997.systemoptional.authorization;
+package com.github.boyarsky1997.systemoptional.servlets;
 
 import com.github.boyarsky1997.systemoptional.db.CommentDAO;
 import com.github.boyarsky1997.systemoptional.db.CourseDAO;

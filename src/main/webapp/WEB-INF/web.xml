@@ -2,42 +2,42 @@
 <web-app>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.LogInServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.LogInServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.ProfileServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.ProfileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogOutServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.LogOutServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.LogOutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistrationServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.RegistrationServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.RegistrationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CoursesServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.CoursesServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.CoursesServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>CourseServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.CourseServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.CourseServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>EditCourseServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.EditCourseServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.EditCourseServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>CreateCourseServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.CreateCourseServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.CreateCourseServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RatingServlet</servlet-name>
-        <servlet-class>com.github.boyarsky1997.systemoptional.authorization.RatingServlet</servlet-class>
+        <servlet-class>com.github.boyarsky1997.systemoptional.servlets.RatingServlet</servlet-class>
     </servlet>
     <session-config>
         <session-timeout>15</session-timeout>
@@ -81,7 +81,7 @@
     </servlet-mapping>
     <filter>
         <filter-name>AuthorizationFilter</filter-name>
-        <filter-class>com.github.boyarsky1997.systemoptional.filtre.AuthorizationFilter</filter-class>
+        <filter-class>com.github.boyarsky1997.systemoptional.filter.AuthorizationFilter</filter-class>
         <init-param>
             <param-name>blacklist</param-name>
             <param-value>/,/login,/registration,/courses,/course,.jpg</param-value>

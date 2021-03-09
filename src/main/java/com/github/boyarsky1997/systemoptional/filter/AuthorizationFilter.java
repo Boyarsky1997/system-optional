@@ -1,7 +1,6 @@
-package com.github.boyarsky1997.systemoptional.filtre;
+package com.github.boyarsky1997.systemoptional.filter;
 
 
-import com.github.boyarsky1997.systemoptional.model.User;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
@@ -40,7 +39,7 @@ public class AuthorizationFilter implements Filter {
             return;
         }
 
-        if (request.getRequestURI().endsWith("/login")) {
+        if (request.getRequestURI().endsWith("/login") || request.getRequestURI().endsWith("/registration")) {
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             response.sendRedirect("/profile");
             return;

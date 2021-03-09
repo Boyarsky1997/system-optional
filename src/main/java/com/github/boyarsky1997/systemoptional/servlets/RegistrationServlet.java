@@ -1,4 +1,4 @@
-package com.github.boyarsky1997.systemoptional.authorization;
+package com.github.boyarsky1997.systemoptional.servlets;
 
 import com.github.boyarsky1997.systemoptional.db.UserDAO;
 import com.github.boyarsky1997.systemoptional.model.Student;
@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationServlet extends HttpServlet {
@@ -26,20 +27,24 @@ public class RegistrationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
-        User user;
-        if (role.equals("STUDENT")) {
-            user = new Student(login, password, name, surname);
-            System.out.println(user);
+        if (name.equals("") || surname.equals("") || login.equals("") || password.equals("") || role.equals("")) {
+            resp.sendRedirect("/registration");
         } else {
-            user = new Teacher(login, password, name, surname);
-            System.out.println(user);
-        }
-        if (!userDAO.checkExistLogin(login)) {
-            userDAO.insertUser(user);
-            resp.sendRedirect("/login");
-        } else {
-            req.setAttribute("message", "This login already exists");
-            req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
+            User user;
+            if (role.equals("STUDENT")) {
+                user = new Student(login, password, name, surname);
+                System.out.println(user);
+            } else {
+                user = new Teacher(login, password, name, surname);
+                System.out.println(user);
+            }
+            if (!userDAO.checkExistLogin(login)) {
+                userDAO.insertUser(user);
+                resp.sendRedirect("/login");
+            } else {
+                req.setAttribute("message", "This login already exists");
+                req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
+            }
         }
     }
 }

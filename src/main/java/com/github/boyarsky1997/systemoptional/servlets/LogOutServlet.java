@@ -1,4 +1,4 @@
-package com.github.boyarsky1997.systemoptional.authorization;
+package com.github.boyarsky1997.systemoptional.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
