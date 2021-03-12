@@ -1,14 +1,18 @@
 package com.github.boyarsky1997.systemoptional.db;
 
-import com.github.boyarsky1997.systemoptional.model.*;
+import com.github.boyarsky1997.systemoptional.model.Role;
+import com.github.boyarsky1997.systemoptional.model.Student;
+import com.github.boyarsky1997.systemoptional.model.Teacher;
+import com.github.boyarsky1997.systemoptional.model.User;
 import com.github.boyarsky1997.systemoptional.util.Resources;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class UserDAO {
     private static final Logger logger = Logger.getLogger(UserDAO.class);
@@ -21,7 +25,7 @@ public class UserDAO {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            logger.info(String.format("Відбувається пошук клієнта по %s ", "логіну і паролю "));
+            logger.info(("Searching for client by login and password "));
 
             if (resultSet.next()) {
 
@@ -59,7 +63,7 @@ public class UserDAO {
             preparedStatement.setDate(4, date);
 
             preparedStatement.execute();
-            logger.info("Клієнт був успішно доданий");
+            logger.info("Client successfully added");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +98,7 @@ public class UserDAO {
                     .prepareStatement(Resources.load("/sql/checkClient.sql"));
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
-            logger.info(String.format("Відбувається пошук клієнта по логіну %s ", login));
+            logger.info(String.format("The client is being searched by login %s ", login));
             if (resultSet.next()) {
                 return true;
             }

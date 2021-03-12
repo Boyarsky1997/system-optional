@@ -131,7 +131,7 @@ public class CourseDAO {
             preparedStatement.setInt(1, idUser);
             preparedStatement.setInt(2, idCourse);
             ResultSet resultSet = preparedStatement.executeQuery();
-            logger.info(String.format("Відбувається пошук клієнта по userId %s та courseID %s : ", idUser, idCourse));
+            logger.info(String.format("The client is being searched by userId %s and courseID %s : ", idUser, idCourse));
             if (resultSet.next()) {
                 return true;
             }
