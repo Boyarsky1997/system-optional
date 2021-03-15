@@ -67,7 +67,7 @@ public class CommentDAOTest {
     }
 
     @Test
-    public void testGetAllCommentOnUserIdWhenException() throws SQLException {
+    public void testGetStudentCourse() throws SQLException {
         Mockito.when(mockConnection.prepareStatement(Mockito.anyString()))
                 .thenReturn(mockPreparedStatement);
         Mockito.when(mockPreparedStatement.executeQuery())
@@ -78,4 +78,5 @@ public class CommentDAOTest {
         Assert.assertNotNull(actual);
         Assert.assertTrue(actual.isEmpty());
     }
+
 }

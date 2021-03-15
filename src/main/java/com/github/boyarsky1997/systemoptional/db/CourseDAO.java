@@ -1,23 +1,35 @@
 package com.github.boyarsky1997.systemoptional.db;
 
 import com.github.boyarsky1997.systemoptional.model.Course;
-import com.github.boyarsky1997.systemoptional.model.User;
 import com.github.boyarsky1997.systemoptional.util.Resources;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDAO {
     private static final Logger logger = Logger.getLogger(CourseDAO.class);
 
+    private final Connection connection;
+
+    public CourseDAO() {
+        this(ConnectionSingleton.getConnection());
+    }
+
+    CourseDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     public List<Course> getAll() {
         List<Course> result = new ArrayList<>();
         ;
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
-                    .prepareStatement(Resources.load("/sql/getAllCourse.sql"));
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    Resources.load("/sql/getAllCourse.sql"));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Course course = new Course();
@@ -28,27 +40,25 @@ public class CourseDAO {
                 result.add(course);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
 
     public void addUserIdAndCourseId(int userId, int courseId) {
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
-                    .prepareStatement(Resources.load("/sql/insertUserAndCourseId.sql"));
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    Resources.load("/sql/insertUserAndCourseId.sql"));
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, courseId);
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
     public int insert(String name, String description, int teacherId) {
-        int id ;
         try {
-            Connection connection = ConnectionSingleton.getConnection();
             PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/insertCourse.sql"));
             preparedStatement.setString(1, name);
@@ -56,38 +66,35 @@ public class CourseDAO {
             preparedStatement.setString(3, description);
             preparedStatement.execute();
 
-
-            preparedStatement =connection.prepareStatement(Resources.load("/sql/getLastId.sql"));
+            preparedStatement = connection.prepareStatement(Resources.load("/sql/getLastId.sql"));
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (true){
-                if (!resultSet.next()) break;
-                id = resultSet.getInt(1);
-                return id;
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return 0;
     }
 
     public void update(int id, String title, String description) {
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/updateCourse.sql"));
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
             preparedStatement.setInt(3, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
     }
 
-    public List<Course> getAllCourseOnTeacherId(int teacherId){
+    public List<Course> getAllCourseOnTeacherId(int teacherId) {
         List<Course> result = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/getAllCourseOnTeacherId.sql"));
             preparedStatement.setInt(1, teacherId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -99,7 +106,7 @@ public class CourseDAO {
                 result.add(course);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -107,7 +114,7 @@ public class CourseDAO {
     public List<Course> getStudentCourse(int studentId) {
         List<Course> result = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/getAllCourseOnUserId.sql"));
             preparedStatement.setInt(1, studentId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -119,14 +126,14 @@ public class CourseDAO {
                 result.add(course);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
 
     public boolean check(int idUser, int idCourse) {
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/checkUserIdAndCourseId.sql"));
             preparedStatement.setInt(1, idUser);
             preparedStatement.setInt(2, idCourse);
@@ -143,9 +150,8 @@ public class CourseDAO {
 
     public Course getById(int id) {
         Course course = new Course();
-
         try {
-            PreparedStatement preparedStatement = ConnectionSingleton.getConnection()
+            PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/getCourse.sql"));
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -156,7 +162,7 @@ public class CourseDAO {
                 course.setDescription(resultSet.getString(4));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(),e);
         }
 
         return course;
