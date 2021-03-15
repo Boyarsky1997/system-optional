@@ -131,7 +131,7 @@ public class CourseDAO {
         return result;
     }
 
-    public boolean check(int idUser, int idCourse) {
+    public boolean checkIsAssignedStudentOnCourse(int idUser, int idCourse) {
         try {
             PreparedStatement preparedStatement = connection
                     .prepareStatement(Resources.load("/sql/checkUserIdAndCourseId.sql"));

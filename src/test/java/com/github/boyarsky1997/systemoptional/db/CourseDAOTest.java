@@ -267,7 +267,7 @@ public class CourseDAOTest {
         Mockito.when(mockResultSet.next())
                 .thenReturn(true);
 
-        boolean actual = courseDAO.check(111, 222);
+        boolean actual = courseDAO.checkIsAssignedStudentOnCourse(111, 222);
 
         Assert.assertTrue(actual);
         Mockito.verify(mockPreparedStatement).setInt(1, 111);
@@ -284,7 +284,7 @@ public class CourseDAOTest {
         Mockito.when(mockPreparedStatement.executeQuery())
                 .thenThrow(SQLException.class);
 
-        boolean actual = courseDAO.check(111, 222);
+        boolean actual = courseDAO.checkIsAssignedStudentOnCourse(111, 222);
 
         Mockito.verify(mockPreparedStatement).setInt(1, 111);
         Mockito.verify(mockPreparedStatement).setInt(2, 222);

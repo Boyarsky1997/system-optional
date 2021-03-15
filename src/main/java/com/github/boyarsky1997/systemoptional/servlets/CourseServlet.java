@@ -15,19 +15,30 @@ import java.io.IOException;
 
 public class CourseServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(CourseServlet.class);
-    CourseDAO repository = new CourseDAO();
-    UserDAO userDAO = new UserDAO();
+
+    private final CourseDAO courseDAO;
+    private final UserDAO userDAO;
+
+    public CourseServlet() {
+        this(new CourseDAO(), new UserDAO());
+    }
+
+    public CourseServlet(CourseDAO courseDAO, UserDAO userDAO) {
+        this.courseDAO = courseDAO;
+        this.userDAO = userDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = 0;
+        int id;
         try {
             id = Integer.parseInt(req.getParameter("id"));
         } catch (NumberFormatException e) {
             resp.sendRedirect("/courses");
             return;
         }
-        Course course = repository.getById(id);
+
+        Course course = courseDAO.getById(id);
         req.setAttribute("course", course);
         System.out.println(course);
         User teacher = userDAO.getTeacher(course.getTeacherId());
@@ -37,12 +48,13 @@ public class CourseServlet extends HttpServlet {
         if (client != null) {
             int idUser = client.getId();
             int idCourse = course.getId();
-            boolean check = repository.check(idUser, idCourse);
-            if (check) {
+            boolean assigned = courseDAO.checkIsAssignedStudentOnCourse(idUser, idCourse);
+            if (assigned) {
                 req.setAttribute("isAssign", true);
             }
         }
-        req.getRequestDispatcher("/jsp/course.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/course.jsp")
+                .forward(req, resp);
     }
 
     @Override
@@ -50,7 +62,7 @@ public class CourseServlet extends HttpServlet {
         String id = req.getParameter("id");
         HttpSession session = req.getSession(false);
         User user = (User) session.getAttribute("client");
-        repository.addUserIdAndCourseId(user.getId(), Integer.parseInt(id));
+        courseDAO.addUserIdAndCourseId(user.getId(), Integer.parseInt(id));
         doGet(req, resp);
     }
 }
