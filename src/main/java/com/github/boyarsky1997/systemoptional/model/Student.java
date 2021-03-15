@@ -6,7 +6,7 @@ public class Student extends User {
         super(Role.STUDENT);
     }
 
-    public Student(String login, String password, String name, String surname) {
-        super(Role.STUDENT, login, password, name, surname);
+    public Student(Integer id, String login, String password, String name, String surname) {
+        super(id, Role.STUDENT, login, password, name, surname);
     }
 }

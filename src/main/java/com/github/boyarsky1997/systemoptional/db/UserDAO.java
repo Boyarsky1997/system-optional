@@ -114,7 +114,7 @@ public class UserDAO {
         return false;
     }
 
-    public List<User> allTeacher(List<Integer> listId) {
+    public List<User> getAllTeachersById(List<Integer> listId) {
         List<User> result = new ArrayList<>();
         for (Integer integer : listId) {
             try {

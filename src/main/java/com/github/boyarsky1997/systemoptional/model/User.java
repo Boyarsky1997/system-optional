@@ -3,12 +3,25 @@ package com.github.boyarsky1997.systemoptional.model;
 import java.util.Objects;
 
 public abstract class User {
-    private int id;
+    private Integer id;
     private Role role;
     private String login;
     private String password;
     private String name;
     private String surname;
+
+    public User(Role student) {
+    }
+
+    public User(Integer id, Role role, String login, String password, String name, String surname) {
+        this.id = id;
+        this.role = role;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+
+    }
 
     public int getId() {
         return id;
@@ -16,18 +29,6 @@ public abstract class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User(Role student) {
-    }
-
-    public User(Role role,String login, String password, String name, String surname ) {
-        this.role = role;
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-
     }
 
     public String getName() {

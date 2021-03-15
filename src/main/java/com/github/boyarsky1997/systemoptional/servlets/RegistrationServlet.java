@@ -32,10 +32,10 @@ public class RegistrationServlet extends HttpServlet {
         } else {
             User user;
             if (role.equals("STUDENT")) {
-                user = new Student(login, password, name, surname);
+                user = new Student(null, login, password, name, surname);
                 System.out.println(user);
             } else {
-                user = new Teacher(login, password, name, surname);
+                user = new Teacher(null, login, password, name, surname);
                 System.out.println(user);
             }
             if (!userDAO.checkExistLogin(login)) {

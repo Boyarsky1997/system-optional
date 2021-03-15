@@ -227,7 +227,7 @@ public class UserDAOTest {
 
         List<Integer> list = Arrays.asList(1, 2, 3);
 
-        List<User> actual = userDAO.allTeacher(list);
+        List<User> actual = userDAO.getAllTeachersById(list);
 
         Assert.assertNotNull(actual);
         Assert.assertFalse(actual.isEmpty());
@@ -265,7 +265,7 @@ public class UserDAOTest {
 
         List<Integer> list = Arrays.asList(1, 2, 3);
 
-        List<User> actual = userDAO.allTeacher(list);
+        List<User> actual = userDAO.getAllTeachersById(list);
 
         Assert.assertTrue(actual.isEmpty());
         Mockito.verify(mockPreparedStatement).setInt(1, list.get(0));
@@ -280,7 +280,7 @@ public class UserDAOTest {
         Mockito.when(mockConnection.prepareStatement(Mockito.anyString()))
                 .thenReturn(mockPreparedStatement);
 
-        User user = new Teacher("roman", "ff", "gsfsfsf", "gsgsgs");
+        User user = new Teacher(null, "roman", "ff", "gsfsfsf", "gsgsgs");
 
         userDAO.insertUser(user);
 
@@ -300,7 +300,7 @@ public class UserDAOTest {
         Mockito.when(mockPreparedStatement.execute())
                 .thenThrow(SQLException.class);
 
-        User user = new Teacher("roman", "ff", "gsfsfsf", "gsgsgs");
+        User user = new Teacher(null,"roman", "ff", "gsfsfsf", "gsgsgs");
 
         userDAO.insertUser(user);
 

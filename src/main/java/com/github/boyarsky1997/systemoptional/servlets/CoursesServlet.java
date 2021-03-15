@@ -18,21 +18,32 @@ import java.util.Map;
 
 public class CoursesServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(CoursesServlet.class);
-    CourseDAO repository = new CourseDAO();
-    UserDAO userDAO = new UserDAO();
+    private CourseDAO courseDAO;
+    private UserDAO userDAO;
+
+    public CoursesServlet() {
+        this(new CourseDAO(), new UserDAO());
+    }
+
+    public CoursesServlet(CourseDAO courseDAO, UserDAO userDAO) {
+        this.courseDAO = courseDAO;
+        this.userDAO = userDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Course> courseList = repository.getAll();
-        List<Integer> listId = new ArrayList<>();
+        List<Course> courseList = courseDAO.getAll();
+
+        List<Integer> teacherIds = new ArrayList<>();
         for (Course course : courseList) {
-            listId.add(course.getTeacherId());
+            teacherIds.add(course.getTeacherId());
         }
-        List<User> users = userDAO.allTeacher(listId);
-        Map<Integer,User> allTeacher = new HashMap<>();
-       for (int i = 0; i<users.size(); i++){
-           allTeacher.put(listId.get(i),users.get(i));
-       }
+        List<User> teachers = userDAO.getAllTeachersById(teacherIds);
+        Map<Integer, User> allTeacher = new HashMap<>();
+        for (int i = 0; i < teachers.size(); i++) {
+            allTeacher.put(teacherIds.get(i), teachers.get(i));
+        }
+
         for (Course course : courseList) {
             course.setTeacher(allTeacher.get(course.getTeacherId()));
         }
