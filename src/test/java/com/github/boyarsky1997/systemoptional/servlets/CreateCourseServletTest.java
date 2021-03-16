@@ -96,7 +96,7 @@ public class CreateCourseServletTest {
     }
 
     @Test
-    public void testDoPostIfNameAndDescriptionEquals() throws ServletException, IOException {
+    public void testDoPostIfNameAndDescriptionEmpty() throws ServletException, IOException {
         Mockito.when(mockRequest.getSession(false))
                 .thenReturn(mockSession);
         User student = new Student();

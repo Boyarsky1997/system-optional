@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class CreateCourseServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(CourseServlet.class);
-    CourseDAO courseDAO;
+    private final CourseDAO courseDAO;
 
     public CreateCourseServlet() {
         this(new CourseDAO());

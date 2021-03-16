@@ -15,7 +15,15 @@ import java.io.IOException;
 
 public class EditCourseServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(EditCourseServlet.class);
-    CourseDAO courseDAO = new CourseDAO();
+    private final CourseDAO courseDAO;
+
+    public EditCourseServlet() {
+        this(new CourseDAO());
+    }
+
+    public EditCourseServlet(CourseDAO courseDAO) {
+        this.courseDAO = courseDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
