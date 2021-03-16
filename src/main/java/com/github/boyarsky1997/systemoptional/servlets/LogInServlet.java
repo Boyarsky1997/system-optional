@@ -11,7 +11,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LogInServlet extends HttpServlet {
-    private UserDAO repository = new UserDAO();
+    private final UserDAO userDAO;
+
+    public LogInServlet() {
+        this(new UserDAO());
+    }
+
+    public LogInServlet(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +30,7 @@ public class LogInServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        User client = repository.get(login, password);
+        User client = userDAO.get(login, password);
         System.out.println("POST " + client);
         if (client == null) {
             req.setAttribute("unfaithful", "Incorrect login or password");
