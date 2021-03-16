@@ -9,11 +9,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationServlet extends HttpServlet {
-    private UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO;
+
+    public RegistrationServlet() {
+        this(new UserDAO());
+    }
+
+    public RegistrationServlet(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
