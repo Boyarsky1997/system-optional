@@ -16,8 +16,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProfileServlet extends HttpServlet {
-    CourseDAO courseDAO = new CourseDAO();
-    CommentDAO commentDAO = new CommentDAO();
+    private final CourseDAO courseDAO;
+    private final CommentDAO commentDAO;
+
+    public ProfileServlet() {
+        this(new CourseDAO(), new CommentDAO());
+    }
+
+    public ProfileServlet(CourseDAO courseDAO, CommentDAO commentDAO) {
+        this.courseDAO = courseDAO;
+        this.commentDAO = commentDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
