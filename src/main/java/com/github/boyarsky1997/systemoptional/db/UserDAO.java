@@ -60,7 +60,7 @@ public class UserDAO {
         return null;
     }
 
-    public void addComment(String message, int teacherId, int studentId, Date date) {
+    public void addComment(String message, Integer teacherId, int studentId, Date date) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     Resources.load("/sql/insertComment.sql"));

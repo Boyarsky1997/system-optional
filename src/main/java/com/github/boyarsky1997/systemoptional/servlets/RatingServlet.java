@@ -9,11 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class RatingServlet extends HttpServlet {
-    UserDAO userDAO = new UserDAO();
+
+    private final static Calendar calendar = Calendar.getInstance();
+
+    private final UserDAO userDAO;
+    private final Supplier<Date> dateSupplier;
+
+    public RatingServlet() {
+        this(new UserDAO(), () -> new Date(calendar.getTime().getTime()));
+    }
+
+    public RatingServlet(UserDAO userDAO, Supplier<Date> dateSupplier) {
+        this.userDAO = userDAO;
+        this.dateSupplier = dateSupplier;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,8 +44,7 @@ public class RatingServlet extends HttpServlet {
         String comment = req.getParameter("comment");
         HttpSession session = req.getSession(false);
         User client = (User) session.getAttribute("client");
-        java.sql.Date sqlDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        userDAO.addComment(comment, client.getId(), Integer.parseInt(studentId), sqlDate);
+        userDAO.addComment(comment, client.getId(), Integer.parseInt(studentId), dateSupplier.get());
         resp.sendRedirect("/courses");
     }
 }

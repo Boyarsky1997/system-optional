@@ -31,7 +31,6 @@ public class ProfileServletTest {
     private CommentDAO mockCommentDAO;
     @Mock
     private CourseDAO mockCourseDAO;
-
     @Mock
     private RequestDispatcher mockRequestDispatcher;
 

@@ -23,7 +23,7 @@ public abstract class User {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

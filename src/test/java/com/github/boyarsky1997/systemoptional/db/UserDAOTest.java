@@ -80,7 +80,7 @@ public class UserDAOTest {
 
         User actual = userDAO.get("roman@gmail.com", "123");
 
-        Assert.assertEquals(actual.getId(), 3);
+        Assert.assertEquals(actual.getId(), (Integer) 3);
         Assert.assertEquals(actual.getRole(), Role.STUDENT);
         Assert.assertEquals(actual.getName(), "Roman");
         Assert.assertEquals(actual.getSurname(), "Boyarsky");
@@ -105,7 +105,7 @@ public class UserDAOTest {
 
         User actual = userDAO.get("roman@gmail.com", "123");
 
-        Assert.assertEquals(actual.getId(), 3);
+        Assert.assertEquals(actual.getId(), (Integer) 3);
         Assert.assertEquals(actual.getRole(), Role.TEACHER);
         Assert.assertEquals(actual.getName(), "Roman");
         Assert.assertEquals(actual.getSurname(), "Boyarsky");
@@ -147,13 +147,13 @@ public class UserDAOTest {
 
         Assert.assertNotNull(actual);
         Assert.assertFalse(actual.isEmpty());
-        Assert.assertEquals(actual.get(0).getId(), 3);
+        Assert.assertEquals(actual.get(0).getId(), (Integer) 3);
         Assert.assertEquals(actual.get(0).getRole(), Role.STUDENT);
         Assert.assertEquals(actual.get(0).getName(), "Roman");
         Assert.assertEquals(actual.get(0).getSurname(), "Boyarsky");
         Assert.assertEquals(actual.get(0).getLogin(), "roman@gmail.com");
         Assert.assertEquals(actual.get(0).getPassword(), "123");
-        Assert.assertEquals(actual.get(1).getId(), 2);
+        Assert.assertEquals(actual.get(1).getId(), (Integer) 2);
         Assert.assertEquals(actual.get(1).getRole(), Role.STUDENT);
         Assert.assertEquals(actual.get(1).getName(), "Vitalik");
         Assert.assertEquals(actual.get(1).getSurname(), "Boyarsky");
@@ -236,19 +236,19 @@ public class UserDAOTest {
         Mockito.verify(mockPreparedStatement).setInt(1, list.get(2));
         Mockito.verify(mockPreparedStatement, Mockito.times(3)).executeQuery();
         Mockito.verify(mockPreparedStatement, Mockito.never()).execute();
-        Assert.assertEquals(actual.get(0).getId(), 1);
+        Assert.assertEquals(actual.get(0).getId(), (Integer) 1);
         Assert.assertEquals(actual.get(0).getRole(), Role.TEACHER);
         Assert.assertEquals(actual.get(0).getName(), "R");
         Assert.assertEquals(actual.get(0).getSurname(), "Boyarsky");
         Assert.assertEquals(actual.get(0).getLogin(), "roman@gmail.com");
         Assert.assertEquals(actual.get(0).getPassword(), "123");
-        Assert.assertEquals(actual.get(1).getId(), 2);
+        Assert.assertEquals(actual.get(1).getId(), (Integer) 2);
         Assert.assertEquals(actual.get(1).getRole(), Role.TEACHER);
         Assert.assertEquals(actual.get(1).getName(), "V");
         Assert.assertEquals(actual.get(1).getSurname(), "Boyarsky");
         Assert.assertEquals(actual.get(1).getLogin(), "vitalik@gmail.com");
         Assert.assertEquals(actual.get(1).getPassword(), "123");
-        Assert.assertEquals(actual.get(2).getId(), 3);
+        Assert.assertEquals(actual.get(2).getId(), (Integer) 3);
         Assert.assertEquals(actual.get(2).getRole(), Role.TEACHER);
         Assert.assertEquals(actual.get(2).getName(), "S");
         Assert.assertEquals(actual.get(2).getSurname(), "Boyarsky");
@@ -300,7 +300,7 @@ public class UserDAOTest {
         Mockito.when(mockPreparedStatement.execute())
                 .thenThrow(SQLException.class);
 
-        User user = new Teacher(null,"roman", "ff", "gsfsfsf", "gsgsgs");
+        User user = new Teacher(null, "roman", "ff", "gsfsfsf", "gsgsgs");
 
         userDAO.insertUser(user);
 
@@ -329,7 +329,7 @@ public class UserDAOTest {
 
         User teacher = userDAO.getTeacher(2);
 
-        Assert.assertEquals(teacher.getId(), 2);
+        Assert.assertEquals(teacher.getId(), (Integer) 2);
         Assert.assertEquals(teacher.getRole(), Role.TEACHER);
         Assert.assertEquals(teacher.getName(), "Roman");
         Assert.assertEquals(teacher.getSurname(), "Boyarsky");
