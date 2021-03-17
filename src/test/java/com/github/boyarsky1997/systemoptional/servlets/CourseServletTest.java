@@ -82,7 +82,7 @@ public class CourseServletTest {
         Mockito.verify(mockUserDAO).getTeacher(4);
         Mockito.verify(mockRequest).setAttribute("teacher", teacher);
         Mockito.verify(mockRequest).setAttribute("isAssign", true);
-        Mockito.verify(mockRequest).getRequestDispatcher("/jsp/courses.jsp");
+        Mockito.verify(mockRequest).getRequestDispatcher("/jsp/course.jsp");
         Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
     }
 
