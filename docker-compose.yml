@@ -7,7 +7,7 @@ services:
     depends_on:
       - mysql
   mysql:
-    image: "mysql"
+    build: mysql
     hostname: "mysql"
     ports:
       - "3306:3306"
